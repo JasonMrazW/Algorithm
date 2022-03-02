@@ -2,14 +2,14 @@
 // Created by bo on 2022/3/2.
 //
 
-#ifndef ALGORITHM_REMOVENUM_H
-#define ALGORITHM_REMOVENUM_H
+#ifndef ALGORITHM_ARRAYEXECUTOR_H
+#define ALGORITHM_ARRAYEXECUTOR_H
 #include "../common.h"
 
-class RemoveNum: public IExecutor {
+class ArrayExecutor: public IExecutor {
 public:
-    RemoveNum(): IExecutor() {}
-    ~RemoveNum() {}
+    ArrayExecutor(): IExecutor() {}
+    ~ArrayExecutor() {}
     int removeElement(std::vector<int> &input, int val);
 
     //找数组中1的个数最长的长度
@@ -23,8 +23,18 @@ public:
 
     //获取杨辉三角的第n行
     std::vector<int> getRow(int row);
+
+    //找旋转数组中的最小元素，时间复杂度O(n)
+    int findMin(std::vector<int>& nums);
+
+    //找旋转数组中的最小元素，时间复杂度O(logN)
+    int findMin2(std::vector<int>& nums);
+
+    //删除数组中重复元素
+    int removeDuplicates(std::vector<int>& nums);
+
     void execute() override;
 };
 
 
-#endif //ALGORITHM_REMOVENUM_H
+#endif //ALGORITHM_ARRAYEXECUTOR_H

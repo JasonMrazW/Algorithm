@@ -2,11 +2,11 @@
 // Created by bo on 2022/3/2.
 //
 
-#include "RemoveNum.h"
+#include "ArrayExecutor.h"
 
 using namespace std;
 
-int RemoveNum::removeElement(std::vector<int> &input, int val) {
+int ArrayExecutor::removeElement(std::vector<int> &input, int val) {
     int fast = 0;
     int slow = 0;
     int size = input.size();
@@ -22,7 +22,7 @@ int RemoveNum::removeElement(std::vector<int> &input, int val) {
 }
 
 //找连续1的最大个数
-int RemoveNum::findMaxConsecutiveOnes(vector<int> &nums) {
+int ArrayExecutor::findMaxConsecutiveOnes(vector<int> &nums) {
     int size = nums.size();
     int fast = 0, slow = -1;
     int max = 0;
@@ -42,15 +42,9 @@ int RemoveNum::findMaxConsecutiveOnes(vector<int> &nums) {
     return max;
 }
 
-void RemoveNum::execute() {
-    vector<int> input = {1,2,3,4,5};
-    //cout << RemoveNum::removeElement(input, 2) << endl;
-    //    cout << findMaxConsecutiveOnes(input) << endl;
-    //cout << minSubArrayLen(11, input) << endl;
-    generate(5);
-}
 
-int RemoveNum::minSubArrayLen(int target, vector<int> &nums) {
+
+int ArrayExecutor::minSubArrayLen(int target, vector<int> &nums) {
     int start = 0, end = 0;
     int size = nums.size();
     int count = 0;
@@ -68,7 +62,7 @@ int RemoveNum::minSubArrayLen(int target, vector<int> &nums) {
 }
 
 //杨辉三角
-vector<vector<int>> RemoveNum::generate(int numRows) {
+vector<vector<int>> ArrayExecutor::generate(int numRows) {
     vector<vector<int>> ret;
     int index = 0;
     vector<int> sub;
@@ -96,7 +90,7 @@ vector<vector<int>> RemoveNum::generate(int numRows) {
     return ret;
 }
 
-std::vector<int> RemoveNum::getRow(int rownums) {
+std::vector<int> ArrayExecutor::getRow(int rownums) {
     vector<int> ret(rownums);
     //first row
     ret[0] = 1;
@@ -114,3 +108,58 @@ std::vector<int> RemoveNum::getRow(int rownums) {
 
     return ret;
 }
+
+int ArrayExecutor::findMin(vector<int> &nums) {
+    int ret = nums[0];
+    int count = 0;
+    int pre_value = nums[0];
+    for (int i = 1; i < nums.size(); ++i) {
+        if (nums[i] > pre_value) {
+            count++;
+            pre_value = nums[i];
+        } else {
+            ret = nums[i];
+            break;
+        }
+    }
+    return ret;
+}
+
+int ArrayExecutor::findMin2(vector<int> &nums) {
+
+    int low = 0, high = nums.size() -1;
+    while (low < high) {
+        int middle = (high - low)/2 + low;
+        if (nums[middle] < nums[high]) {
+            high = middle;
+        } else {
+            low = middle + 1;
+        }
+    }
+    return nums[low];
+}
+
+void ArrayExecutor::execute() {
+    vector<int> input = {0,0,0,1,1,1,2,2};
+    //cout << ArrayExecutor::removeElement(input, 2) << endl;
+    //    cout << findMaxConsecutiveOnes(input) << endl;
+    //cout << minSubArrayLen(11, input) << endl;
+    //generate(5);
+    //cout << findMin2(input) << endl;
+
+    cout << removeDuplicates(input) << endl;
+
+}
+
+int ArrayExecutor::removeDuplicates(vector<int> &nums) {
+    int fast = 0, slow = 0;
+    while (fast < nums.size()) {
+        if (nums[fast] != nums[slow]) {
+            slow++;
+            nums[slow] = nums[fast];
+        }
+        fast++;
+    }
+    return slow+1;
+}
+
