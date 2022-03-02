@@ -139,18 +139,6 @@ int ArrayExecutor::findMin2(vector<int> &nums) {
     return nums[low];
 }
 
-void ArrayExecutor::execute() {
-    vector<int> input = {0,0,0,1,1,1,2,2};
-    //cout << ArrayExecutor::removeElement(input, 2) << endl;
-    //    cout << findMaxConsecutiveOnes(input) << endl;
-    //cout << minSubArrayLen(11, input) << endl;
-    //generate(5);
-    //cout << findMin2(input) << endl;
-
-    cout << removeDuplicates(input) << endl;
-
-}
-
 int ArrayExecutor::removeDuplicates(vector<int> &nums) {
     int fast = 0, slow = 0;
     while (fast < nums.size()) {
@@ -161,5 +149,49 @@ int ArrayExecutor::removeDuplicates(vector<int> &nums) {
         fast++;
     }
     return slow+1;
+}
+
+int ArrayExecutor::removeDuplicates2(vector<int> &nums) {
+    int fast = 1, slow =0;
+    int count = 1;
+    while (fast < nums.size()) {
+        if (nums[fast] != nums[slow]) {
+            slow++;
+            nums[slow] = nums[fast];
+            count = 0;
+            count++;
+        } else if (count < 2) {
+            count++;
+            slow++;
+            nums[slow] = nums[fast];
+        }
+        fast++;
+    }
+    return slow+1;
+}
+
+void ArrayExecutor::execute() {
+    vector<int> input = {0,0,0,1,1,1,2,2};
+    //cout << ArrayExecutor::removeElement(input, 2) << endl;
+    //    cout << findMaxConsecutiveOnes(input) << endl;
+    //cout << minSubArrayLen(11, input) << endl;
+    //generate(5);
+    //cout << findMin2(input) << endl;
+
+    moveZeroes(input);
+}
+
+void ArrayExecutor::moveZeroes(vector<int> &nums) {
+    int fast = 0, slow =0;
+    while (fast < nums.size()) {
+        if (nums[fast] != 0) {
+            nums[slow++] = nums[fast];
+        }
+        fast++;
+    }
+
+    while (slow < nums.size()) {
+        nums[slow++] = 0;
+    }
 }
 

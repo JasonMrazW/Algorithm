@@ -33,6 +33,12 @@ public:
     //删除数组中重复元素
     int removeDuplicates(std::vector<int>& nums);
 
+    //80. 删除有序数组中的重复项 II
+    int removeDuplicates2(std::vector<int>& nums);
+
+    //283. 移动零
+    void moveZeroes(std::vector<int>& nums);
+
     void execute() override;
 };
 
