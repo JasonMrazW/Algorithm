@@ -6,4 +6,10 @@
 #define ALGORITHM_COMMON_H
 #include <iostream>
 #include <vector>
+class IExecutor {
+public:
+    IExecutor() {}
+    ~IExecutor() {}
+    virtual void execute() = 0;
+};
 #endif //ALGORITHM_COMMON_H
