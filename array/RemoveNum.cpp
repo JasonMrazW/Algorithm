@@ -43,7 +43,25 @@ int RemoveNum::findMaxConsecutiveOnes(vector<int> &nums) {
 }
 
 void RemoveNum::execute() {
-    vector<int> input = {1,0,1,1,0,1};
+    vector<int> input = {1,2,3,4,5};
     //cout << RemoveNum::removeElement(input, 2) << endl;
-    cout << findMaxConsecutiveOnes(input) << endl;
+    //    cout << findMaxConsecutiveOnes(input) << endl;
+    cout << minSubArrayLen(11, input) << endl;
+}
+
+int RemoveNum::minSubArrayLen(int target, vector<int> &nums) {
+    int start = 0, end = 0;
+    int size = nums.size();
+    int count = 0;
+    int ret = 0;
+    while (end < size) {
+        count += nums[end];
+        while (count >= target) {
+            ret = ret ==0 ? (end-start+1):min(ret, end-start+1);
+            count -= nums[start];
+            start++;
+        }
+        end++;
+    }
+    return ret;
 }
