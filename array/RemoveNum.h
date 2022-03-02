@@ -17,6 +17,12 @@ public:
 
     //找数组中最小长度子数组
     int minSubArrayLen(int target, std::vector<int>& nums);
+
+    //杨辉三角
+    std::vector<std::vector<int>> generate(int numRows);
+
+    //获取杨辉三角的第n行
+    std::vector<int> getRow(int row);
     void execute() override;
 };
 
