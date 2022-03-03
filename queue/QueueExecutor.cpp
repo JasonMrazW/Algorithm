@@ -70,15 +70,43 @@ int QueueExecutor::getDistance(vector<vector<int>> &rooms, int rowIndex, int col
     return INT32_MAX;
 }
 
-int QueueExecutor::numIslands(vector<vector<char>> &grid) {
-    
-    return 0;
+int QueueExecutor::numIslands(vector<vector<int>> &grid) {
+    queue<vector<int>> land_queue;
+    int m = grid.size(), n = grid[0].size();
+    int flag = 10;
+    int count = 0;
+    for (int row = 0; row < m; ++row) {
+        for (int col = 0; col < n; ++col) {
+            //陆地
+            if (grid[row][col] == 1) {
+                land_queue.push({row, col});
+                while (!land_queue.empty()) {
+                    vector<int> point = land_queue.front();
+                    land_queue.pop();
+                    int rowIndex = point[0];
+                    int colIndex = point[1];
+                    for (vector<int> direction: DISTANCE) {
+                        int r = rowIndex + direction[0];
+                        int c = colIndex + direction[1];
+                        if (r < 0 || c < 0 || r >=m || c >= n || grid[r][c] == 0 || grid[r][c] > 1){
+                            continue;
+                        }
+                        grid[r][c] = flag;
+                        land_queue.push({r, c});
+                    }
+                }
+                count++;
+            }
+        }
+    }
+    return count;
 }
 
 void QueueExecutor::execute() {
-    vector<vector<int>> queue =  { {2147483647,-1,0,2147483647 }, {2147483647,2147483647,2147483647,-1 }, {2147483647,-1,2147483647,-1 }, {0,-1,2147483647,2147483647 } };
-    wallsAndGates(queue);
-
+//    vector<vector<int>> queue =  { {2147483647,-1,0,2147483647 }, {2147483647,2147483647,2147483647,-1 }, {2147483647,-1,2147483647,-1 }, {0,-1,2147483647,2147483647 } };
+//    wallsAndGates(queue);
+    vector<vector<int>> queue = {{1,1,1,1,0},{1,1,0,1,0},{1,1,0,0,0},{0,0,0,0,0}};
+    cout << "land count :" << numIslands(queue) << endl;
     for (int i = 0; i < queue.size(); ++i) {
         cout << "[";
         for (int j = 0; j < queue[i].size(); ++j) {

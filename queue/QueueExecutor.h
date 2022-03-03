@@ -20,7 +20,7 @@ public:
     int getDistance(vector<vector<int>>& rooms, int rowIndex, int colIndex);
 
     //200：岛屿数量
-    int numIslands(vector<vector<char>>& grid)
+    int numIslands(vector<vector<int>>& grid);
 };
 
 
