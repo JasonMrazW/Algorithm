@@ -6,6 +6,8 @@
 #define ALGORITHM_QUEUEEXECUTOR_H
 #include "../common.h"
 #include <queue>
+#include <unordered_set>
+
 using namespace std;
 
 class QueueExecutor: public IExecutor{
@@ -21,6 +23,9 @@ public:
 
     //200：岛屿数量
     int numIslands(vector<vector<int>>& grid);
+
+    //752：打开转盘锁
+    int openLock(vector<string>& deadends, string target);
 };
 
 

@@ -102,6 +102,66 @@ int QueueExecutor::numIslands(vector<vector<int>> &grid) {
     return count;
 }
 
+//==========================================
+//打开转盘锁
+int QueueExecutor::openLock(vector<string> &deadends, string target) {
+    if (target == "0000") {
+        return 0;
+    }
+
+    unordered_set<string> dead_sets(deadends.begin(), deadends.end());
+    if (dead_sets.count("0000")) {
+        return -1;
+    }
+
+    //上一个字符
+    auto char_pre = [](char x) -> char {
+        return (x == '0' ? '9':x-1);
+    };
+
+    //下一个字符
+    auto char_next = [](char x) -> char {
+        return (x == '9' ? '0': x+1);
+    };
+
+    auto get_subs = [&](string &x) -> vector<string> {
+        vector<string> v;
+        for (int i = 0; i < x.length(); ++i) {
+            char t = x[i];
+            x[i] = char_pre(t);
+            v.push_back(x);
+            x[i] = char_next(t);
+            v.push_back(x);
+            //回归原位
+            x[i] = t;
+        }
+        return v;
+    };
+
+
+    string temp = "0000";
+    queue<pair<string,int>> queue;
+    queue.emplace("0000",0);
+
+    unordered_set<string> seen = {"0000"};
+    while (!queue.empty()) {
+        auto [front, step] = queue.front();
+        queue.pop();
+        for (auto &next_str: get_subs(front)) {
+            if (!seen.count(next_str) && !dead_sets.count(next_str)) {
+                if (next_str == target) {
+                    return step + 1;
+                }
+
+                queue.emplace(next_str, step+1);
+                seen.insert(next_str);
+            }
+        }
+    }
+
+    return -1;
+}
+
 void QueueExecutor::execute() {
 //    vector<vector<int>> queue =  { {2147483647,-1,0,2147483647 }, {2147483647,2147483647,2147483647,-1 }, {2147483647,-1,2147483647,-1 }, {0,-1,2147483647,2147483647 } };
 //    wallsAndGates(queue);
@@ -115,6 +175,7 @@ void QueueExecutor::execute() {
         cout << "]";
     }
 }
+
 
 
 
