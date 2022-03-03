@@ -165,15 +165,47 @@ int QueueExecutor::openLock(vector<string> &deadends, string target) {
 void QueueExecutor::execute() {
 //    vector<vector<int>> queue =  { {2147483647,-1,0,2147483647 }, {2147483647,2147483647,2147483647,-1 }, {2147483647,-1,2147483647,-1 }, {0,-1,2147483647,2147483647 } };
 //    wallsAndGates(queue);
-    vector<vector<int>> queue = {{1,1,1,1,0},{1,1,0,1,0},{1,1,0,0,0},{0,0,0,0,0}};
-    cout << "land count :" << numIslands(queue) << endl;
-    for (int i = 0; i < queue.size(); ++i) {
-        cout << "[";
-        for (int j = 0; j < queue[i].size(); ++j) {
-            cout << queue[i][j] << ",";
+//    vector<vector<int>> queue = {{1,1,1,1,0},{1,1,0,1,0},{1,1,0,0,0},{0,0,0,0,0}};
+//    cout << "land count :" << numIslands(queue) << endl;
+//    for (int i = 0; i < queue.size(); ++i) {
+//        cout << "[";
+//        for (int j = 0; j < queue[i].size(); ++j) {
+//            cout << queue[i][j] << ",";
+//        }
+//        cout << "]";
+//    }
+
+    cout << numSquares(2) << endl;
+}
+
+int QueueExecutor::numSquares(int n) {
+    queue<pair<int, int>> q;
+    q.emplace(n, 1);
+
+    auto is_complete = [](int n) -> bool {
+        float t = sqrt(n);
+        return t == (int)t;
+    };
+
+    int step = 1;
+    while (!q.empty()) {
+        auto [num, step] = q.front();
+        q.pop();
+        for (int i = num; i > 0; --i) {
+            if (is_complete(i)) {
+                int next = num - i;
+                if (is_complete(next)) {
+                    if (next != 0) {
+                        return step + 1;
+                    }
+                    return step;
+                }
+                q.emplace(next, step+1);
+            }
         }
-        cout << "]";
+        step++;
     }
+    return step;
 }
 
 

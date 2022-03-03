@@ -26,6 +26,9 @@ public:
 
     //752：打开转盘锁
     int openLock(vector<string>& deadends, string target);
+
+    //279. 完全平方数
+    int numSquares(int n);
 };
 
 
