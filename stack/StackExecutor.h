@@ -29,6 +29,9 @@ public:
 
     //150. 逆波兰表达式求值
     int evalRPN(vector<string>& tokens);
+
+    //200. 岛屿数量
+    int numIslands(vector<vector<char>>& grid);
 };
 
 

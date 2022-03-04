@@ -3,7 +3,12 @@
 //
 
 #include "StackExecutor.h"
-
+static const vector<vector<int>> directions = {
+        {1, 0},
+        {-1,0},
+        {0, 1},
+        {0,-1}
+};
 
 bool StackExecutor::isValid(string s) {
     int length = s.length();
@@ -111,13 +116,16 @@ void StackExecutor::execute() {
 //        cout << ret[i] << ",";
 //    }
 //    cout << endl;
-    vector<string> input = {"2","1","+","3","*"};
-    cout << evalRPN(input) << endl;
+//    vector<string> input = {"2","1","+","3","*"};
+//    cout << evalRPN(input) << endl;
+
+vector<vector<char>> queue = {{'1','1','0','0','0'}, {'1','1','0','0','0'}, {'0','0','1','0','0'}, {'0','0','0','1','1'}};
+        cout << "land count :" << numIslands(queue) << endl;
 }
 
 int StackExecutor::evalRPN(vector<string> &tokens) {
     stack<int> value;
-    auto isNumber = [](string v) -> bool  {
+    auto isNumber =  [](string v) -> bool  {
         if (v == "+" || v == "-" || v == "*" || v == "/") {
             return false;
         } else {
@@ -144,4 +152,34 @@ int StackExecutor::evalRPN(vector<string> &tokens) {
         }
     }
     return value.top();
+}
+
+int StackExecutor::numIslands(vector<vector<char>> &grid) {
+    stack<pair<int,int>> temp_stack;
+    int count = 0;
+    int m = grid.size();
+    int n = grid[0].size();
+    char flag = '10';
+    for (int row = 0; row < m; ++row) {
+        for (int col = 0; col < n; ++col) {
+            if (grid[row][col] == '1') {
+                temp_stack.push({row, col});
+                while (!temp_stack.empty()) {
+                    auto [rowIndex, colIndex] = temp_stack.top();
+                    temp_stack.pop();
+                    for (vector<int> direction: directions) {
+                        int r = rowIndex + direction[0];
+                        int c = colIndex + direction[1];
+                        if (r<0 || c < 0 || r>=m || c>=n || grid[r][c] == '0' || grid[r][c] == flag) {
+                            continue;
+                        }
+                        grid[r][c] = flag;
+                        temp_stack.push({r,c});
+                    }
+                }
+                count ++;
+            }
+        }
+    }
+    return count;
 }
