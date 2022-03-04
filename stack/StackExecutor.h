@@ -23,6 +23,9 @@ public:
 
     //678：有效字符串
     bool checkValidString(string s);
+
+    //038:温度
+    vector<int> dailyTemperatures(vector<int>& temperatures);
 };
 
 

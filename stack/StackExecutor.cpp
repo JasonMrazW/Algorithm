@@ -4,10 +4,6 @@
 
 #include "StackExecutor.h"
 
-void StackExecutor::execute() {
-    cout << isValid("){") << endl;
-    cout << checkValidString("((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()") << endl;
-}
 
 bool StackExecutor::isValid(string s) {
     int length = s.length();
@@ -84,4 +80,35 @@ bool StackExecutor::checkValidString(string s) {
     }
 
     return true;
+}
+
+vector<int> StackExecutor::dailyTemperatures(vector<int> &temperatures) {
+    stack<int> min_stack;
+    vector<int> ret(temperatures.size(), 0);
+    for (int i = 0; i < temperatures.size(); ++i) {
+        while (!min_stack.empty()) {
+            int index = min_stack.top();
+            if (temperatures[i] > temperatures[index]) {
+                ret[index] = i - index;
+            } else {
+                break;
+            }
+            min_stack.pop();
+        }
+        min_stack.push(i);
+    }
+    return ret;
+}
+
+
+void StackExecutor::execute() {
+    cout << isValid("){") << endl;
+    cout << checkValidString("((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()") << endl;
+    vector<int> temperatures = {73,74,75,71,69,72,76,73};
+    vector<int> ret = dailyTemperatures(temperatures);
+
+    for (int i = 0; i < ret.size(); ++i) {
+        cout << ret[i] << ",";
+    }
+    cout << endl;
 }
