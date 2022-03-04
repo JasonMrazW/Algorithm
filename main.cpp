@@ -5,12 +5,13 @@
 #include "string/StringExecutor.h"
 #include "queue/MyCircularQueue.h"
 #include "queue/QueueExecutor.h"
+#include "stack/StackExecutor.h"
 
 using namespace std;
 
 int main() {
     clock_t start = clock();
-    IExecutor *executor = new QueueExecutor();
+    IExecutor *executor = new StackExecutor();
     executor->execute();
 
     clock_t end = clock();
