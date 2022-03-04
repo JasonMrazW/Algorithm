@@ -102,13 +102,46 @@ vector<int> StackExecutor::dailyTemperatures(vector<int> &temperatures) {
 
 
 void StackExecutor::execute() {
-    cout << isValid("){") << endl;
-    cout << checkValidString("((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()") << endl;
-    vector<int> temperatures = {73,74,75,71,69,72,76,73};
-    vector<int> ret = dailyTemperatures(temperatures);
+//    cout << isValid("){") << endl;
+//    cout << checkValidString("((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()") << endl;
+//    vector<int> temperatures = {73,74,75,71,69,72,76,73};
+//    vector<int> ret = dailyTemperatures(temperatures);
+//
+//    for (int i = 0; i < ret.size(); ++i) {
+//        cout << ret[i] << ",";
+//    }
+//    cout << endl;
+    vector<string> input = {"2","1","+","3","*"};
+    cout << evalRPN(input) << endl;
+}
 
-    for (int i = 0; i < ret.size(); ++i) {
-        cout << ret[i] << ",";
+int StackExecutor::evalRPN(vector<string> &tokens) {
+    stack<int> value;
+    auto isNumber = [](string v) -> bool  {
+        if (v == "+" || v == "-" || v == "*" || v == "/") {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    auto getResult = [](int a, int b, string c) -> int {
+        if (c == "+") return a + b;
+        if (c == "-") return a - b;
+        if (c == "*") return a * b;
+        if (c == "/") return a / b;
+        return 0;
+    };
+    for (int i = 0; i < tokens.size(); ++i) {
+        if (isNumber(tokens[i])) {
+            value.push(atoi(tokens[i].c_str()));
+        } else {
+            int b = value.top();
+            value.pop();
+            int a = value.top();
+            value.pop();
+            value.push(getResult(a, b, tokens[i]));
+        }
     }
-    cout << endl;
+    return value.top();
 }

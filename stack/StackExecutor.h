@@ -26,6 +26,9 @@ public:
 
     //038:温度
     vector<int> dailyTemperatures(vector<int>& temperatures);
+
+    //150. 逆波兰表达式求值
+    int evalRPN(vector<string>& tokens);
 };
 
 
