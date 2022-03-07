@@ -259,3 +259,26 @@ int StackExecutor::findTargetSumWays2(vector<int> &nums, int target) {
     target_sum(nums, target, 0 ,0);
     return count;
 }
+
+vector<int> StackExecutor::inorderTraversal(TreeNode *root) {
+    vector<int> ret;
+    if (root == nullptr) return ret;
+    stack<TreeNode*> temp;
+    TreeNode *cur = root;
+
+    while (cur != nullptr || !temp.empty()) {
+        while (cur != nullptr) {
+            temp.push(cur);
+            cur = cur->left;
+        }
+
+        if (!temp.empty()) {
+            TreeNode* top = temp.top();
+            temp.pop();
+            ret.push_back(top->val);
+            cur = top->right;
+        }
+    }
+
+    return ret;
+}

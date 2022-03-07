@@ -11,13 +11,21 @@
 #include <unordered_set>
 
 using namespace std;
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
 
 class StackExecutor: public IExecutor {
 private:
     int left = 1;
     int right = 2;
     unordered_map<Node*, Node*> visited_map;
-    int count = 0;
+        int count = 0;
 public:
     StackExecutor():IExecutor() {
 
@@ -47,6 +55,9 @@ public:
     int findTargetSumWays2(vector<int>& nums, int target);
 
     int target_sum(vector<int> &nums, int target, int index, int sum);
+
+    //94. 二叉树中序遍历
+    vector<int> inorderTraversal(TreeNode* root);
 };
 
 
