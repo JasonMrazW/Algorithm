@@ -39,6 +39,9 @@ public:
 
     //133. 克隆图
     Node* cloneGraph(Node* node);
+
+    //494. 目标和
+    int findTargetSumWays(vector<int>& nums, int target);
 };
 
 

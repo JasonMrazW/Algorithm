@@ -197,3 +197,19 @@ Node *StackExecutor::cloneGraph(Node *node) {
 
     return ret;
 }
+
+int StackExecutor::findTargetSumWays(vector<int> &nums, int target) {
+
+    auto sum_nums = [](int num, int pre) -> int {
+        return num + pre;
+    };
+
+    auto minus_nums = [](int num, int pre) -> int {
+        return pre - num;
+    };
+
+    for(int num: nums) {
+        
+    }
+    return 0;
+}
