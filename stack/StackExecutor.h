@@ -6,12 +6,16 @@
 #define ALGORITHM_STACKEXECUTOR_H
 #include "../common.h"
 #include <stack>
+#include "Node.h"
+#include <unordered_map>
+
 using namespace std;
 
 class StackExecutor: public IExecutor {
 private:
     int left = 1;
     int right = 2;
+    unordered_map<Node*, Node*> visited_map;
 public:
     StackExecutor():IExecutor() {
 
@@ -32,6 +36,9 @@ public:
 
     //200. 岛屿数量
     int numIslands(vector<vector<char>>& grid);
+
+    //133. 克隆图
+    Node* cloneGraph(Node* node);
 };
 
 

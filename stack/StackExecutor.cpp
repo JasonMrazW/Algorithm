@@ -183,3 +183,17 @@ int StackExecutor::numIslands(vector<vector<char>> &grid) {
     }
     return count;
 }
+
+Node *StackExecutor::cloneGraph(Node *node) {
+    if (visited_map.count(node)) {
+        return visited_map[node];
+    }
+    Node *ret = new Node(node->val);
+    visited_map.emplace(node, ret);
+
+    for (Node* n: node->neighbors) {
+        ret->neighbors.push_back(cloneGraph(n));
+    }
+
+    return ret;
+}
