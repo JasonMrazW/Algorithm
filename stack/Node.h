@@ -5,10 +5,12 @@
 #ifndef ALGORITHM_NODE_H
 #define ALGORITHM_NODE_H
 #include "../common.h"
+
+using namespace std;
 class Node {
 public:
     int val;
-    vector<Node*> neighbors;
+    std::vector<Node*> neighbors;
     Node() {
         val = 0;
         neighbors = vector<Node*>();

@@ -119,8 +119,12 @@ void StackExecutor::execute() {
 //    vector<string> input = {"2","1","+","3","*"};
 //    cout << evalRPN(input) << endl;
 
-vector<vector<char>> queue = {{'1','1','0','0','0'}, {'1','1','0','0','0'}, {'0','0','1','0','0'}, {'0','0','0','1','1'}};
-        cout << "land count :" << numIslands(queue) << endl;
+//vector<vector<char>> queue = {{'1','1','0','0','0'}, {'1','1','0','0','0'}, {'0','0','1','0','0'}, {'0','0','0','1','1'}};
+//        cout << "land count :" << numIslands(queue) << endl;
+
+        vector<int> numbs = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1};
+        int target = 1;
+        cout << findTargetSumWays(numbs, target) << endl;
 }
 
 int StackExecutor::evalRPN(vector<string> &tokens) {
@@ -199,17 +203,59 @@ Node *StackExecutor::cloneGraph(Node *node) {
 }
 
 int StackExecutor::findTargetSumWays(vector<int> &nums, int target) {
-
-    auto sum_nums = [](int num, int pre) -> int {
-        return num + pre;
-    };
-
-    auto minus_nums = [](int num, int pre) -> int {
-        return pre - num;
-    };
-
-    for(int num: nums) {
-        
+    if (nums.empty()) {
+        return -1;
     }
-    return 0;
+    stack<int> sum_stack;
+    sum_stack.push(0);
+    stack<int> sum_stack2;
+
+    int size = 0;
+    stack<int> *p = nullptr;
+    stack<int> *p2 = nullptr;
+    for (int i = 0; i < nums.size(); ++i) {
+        if (i % 2 == 0) {
+            p = &sum_stack;
+            p2 = &sum_stack2;
+        } else {
+            p = &sum_stack2;
+            p2 = &sum_stack;
+        }
+
+        while (!p->empty()) {
+            int top = p->top();
+            p->pop();
+            int sum_value = top + nums[i];
+            int min_value = top - nums[i];
+            p2->push(sum_value);
+            p2->push(min_value);
+        }
+    }
+
+    int count = 0;
+    while (!p2->empty()) {
+        int top = p2->top();
+        p2->pop();
+        if (top == target) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+int StackExecutor::target_sum(int pre, int index, vector<int> nums) {
+    if (index == nums.size() -1) {
+        return pre + nums[index];
+    } else {
+        return target_sum(pre + nums[index], index++, nums);
+    }
+}
+
+int StackExecutor::target_minos(int pre, int index, vector<int> nums) {
+    if (index == nums.size() -1) {
+        return pre - nums[index];
+    } else {
+        return target_sum(pre - nums[index], index++, nums);
+    }
 }

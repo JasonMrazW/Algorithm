@@ -8,6 +8,7 @@
 #include <stack>
 #include "Node.h"
 #include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
@@ -42,6 +43,9 @@ public:
 
     //494. 目标和
     int findTargetSumWays(vector<int>& nums, int target);
+
+    int target_sum(int pre, int index, vector<int> nums);
+    int target_minos(int pre, int index, vector<int> nums);
 };
 
 
