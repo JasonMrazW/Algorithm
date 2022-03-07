@@ -17,6 +17,7 @@ private:
     int left = 1;
     int right = 2;
     unordered_map<Node*, Node*> visited_map;
+    int count = 0;
 public:
     StackExecutor():IExecutor() {
 
@@ -43,9 +44,9 @@ public:
 
     //494. 目标和
     int findTargetSumWays(vector<int>& nums, int target);
+    int findTargetSumWays2(vector<int>& nums, int target);
 
-    int target_sum(int pre, int index, vector<int> nums);
-    int target_minos(int pre, int index, vector<int> nums);
+    int target_sum(vector<int> &nums, int target, int index, int sum);
 };
 
 

@@ -124,7 +124,7 @@ void StackExecutor::execute() {
 
         vector<int> numbs = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1};
         int target = 1;
-        cout << findTargetSumWays(numbs, target) << endl;
+        cout << findTargetSumWays2(numbs, target) << endl;
 }
 
 int StackExecutor::evalRPN(vector<string> &tokens) {
@@ -244,18 +244,18 @@ int StackExecutor::findTargetSumWays(vector<int> &nums, int target) {
     return count;
 }
 
-int StackExecutor::target_sum(int pre, int index, vector<int> nums) {
-    if (index == nums.size() -1) {
-        return pre + nums[index];
+int StackExecutor::target_sum(vector<int> &nums, int target, int index, int sum) {
+    if (index == nums.size()) {
+        if (sum == target) {
+            count++;
+        }
     } else {
-        return target_sum(pre + nums[index], index++, nums);
+        target_sum(nums, target, index+1, sum + nums[index]);
+        target_sum(nums, target, index+1, sum - nums[index]);
     }
 }
 
-int StackExecutor::target_minos(int pre, int index, vector<int> nums) {
-    if (index == nums.size() -1) {
-        return pre - nums[index];
-    } else {
-        return target_sum(pre - nums[index], index++, nums);
-    }
+int StackExecutor::findTargetSumWays2(vector<int> &nums, int target) {
+    target_sum(nums, target, 0 ,0);
+    return count;
 }
