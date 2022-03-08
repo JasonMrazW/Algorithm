@@ -450,9 +450,51 @@ void StackExecutor::execute() {
 
     cout << decodeString("ab3[ab3[a]]b") << endl;
 
-    vector<vector<int>> queue = {{0,0,0},{0,1,1}};
-    vector<vector<int>> queue2 = floodFillDFS(queue, 1,1,2);
+    vector<vector<int>> queue = {{0}, {1}};
+//    vector<vector<int>> queue2 = floodFillDFS(queue, 1,1,2);
+vector<vector<int>> queue2 = updateMatrix(queue);
     cout << "xxx" << endl;
+}
+
+vector<vector<int>> StackExecutor::updateMatrix(vector<vector<int>> &mat) {
+    //初始化相同大小的矩阵
+    vector<vector<int>> ret(mat.size(), vector<int>(mat[0].size()));
+
+    queue<pair<int,int>> tmp_queue;
+    int row_size = mat.size();
+    int col_size = mat[0].size();
+    vector<vector<int>> visited(row_size, vector<int>(col_size));
+
+    for (int i = 0; i < row_size; ++i) {
+        for (int j = 0; j < col_size; ++j) {
+            if (mat[i][j] == 0) {
+                tmp_queue.push({i,j});
+                visited[i][j] = 1;
+            }
+        }
+    }
+
+
+    int step = 0;
+    while (!tmp_queue.empty()) {
+        auto [row, col] = tmp_queue.front();
+        tmp_queue.pop();
+
+        for (int i = 0; i < 4; ++i) {
+            int rowIndex = row + directions[i][0];
+            int colIndex = col + directions[i][1];
+            if (rowIndex >= row_size || rowIndex < 0 || colIndex >= col_size ||
+            colIndex < 0 || visited[rowIndex][colIndex]) {
+                continue;
+            }
+
+            ret[rowIndex][colIndex] = ret[row][col] + 1;
+            visited[rowIndex][colIndex] = 1;
+            tmp_queue.emplace(rowIndex,colIndex);
+        }
+    }
+
+    return ret;
 }
 
 

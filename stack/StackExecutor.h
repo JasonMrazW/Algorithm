@@ -78,6 +78,9 @@ public:
     //733. 图像渲染
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor);
     vector<vector<int>> floodFillDFS(vector<vector<int>>& image, int sr, int sc, int newColor);
+
+    //542. 01 矩阵
+    vector<vector<int>> updateMatrix(vector<vector<int>>& mat);
 };
 
 
