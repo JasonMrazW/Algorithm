@@ -370,7 +370,63 @@ string StackExecutor::decodeSubString(string s, int index) {
     }
     return ret;
 }
+vector<vector<int>> StackExecutor::floodFillDFS(vector<vector<int>> &image, int sr, int sc, int newColor) {
+    int source_value = image[sr][sc];
+    stack<pair<int,int>> pos_stack;
+    pos_stack.push({sr, sc});
 
+    int row_size = image.size();
+    int col_size = image[0].size();
+    image[sr][sc] = newColor;
+
+    while (!pos_stack.empty()) {
+        auto [row, col] = pos_stack.top();
+        pos_stack.pop();
+        visited.emplace(row*1000+col, col);
+        image[row][col] = newColor;
+
+        for (int i = 0; i < directions.size(); ++i) {
+            int rowIndex = row + directions[i][0];
+            int colIndex = col + directions[i][1];
+            if (rowIndex >= row_size || rowIndex < 0 || colIndex >= col_size ||
+            colIndex < 0 || image[rowIndex][colIndex] != source_value ||
+            visited.count(rowIndex*1000 + colIndex)) {
+                continue;
+            }
+            floodFillDFS(image, rowIndex, colIndex, newColor);
+        }
+    }
+    return image;
+}
+vector<vector<int>> StackExecutor::floodFill(vector<vector<int>> &image, int sr, int sc, int newColor) {
+    int source_value = image[sr][sc];
+    queue<pair<int,int>> pos_queue;
+    pos_queue.push({sr, sc});
+
+    int row_size = image.size();
+    int col_size = image[0].size();
+    image[sr][sc] = newColor;
+    unordered_map<int,int> visited;
+
+    while (!pos_queue.empty()) {
+        auto [row, col] = pos_queue.front();
+        pos_queue.pop();
+        for (int i = 0; i < directions.size(); ++i) {
+            int rowIndex = row + directions[i][0];
+            int colIndex = col + directions[i][1];
+            if (rowIndex >= row_size || rowIndex < 0 || colIndex >= col_size ||
+            colIndex < 0 || image[rowIndex][colIndex] != source_value ||
+            visited.count(rowIndex*1000 + colIndex)) {
+                continue;
+            }
+            image[rowIndex][colIndex] = newColor;
+            visited.emplace(rowIndex*1000+colIndex, colIndex);
+            pos_queue.push({rowIndex, colIndex});
+        }
+    }
+
+    return image;
+}
 
 void StackExecutor::execute() {
     //    cout << isValid("){") << endl;
@@ -393,4 +449,10 @@ void StackExecutor::execute() {
     //cout << findTargetSumWays2(numbs, target) << endl;
 
     cout << decodeString("ab3[ab3[a]]b") << endl;
+
+    vector<vector<int>> queue = {{0,0,0},{0,1,1}};
+    vector<vector<int>> queue2 = floodFillDFS(queue, 1,1,2);
+    cout << "xxx" << endl;
 }
+
+

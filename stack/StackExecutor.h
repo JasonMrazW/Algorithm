@@ -28,6 +28,13 @@ private:
     unordered_map<Node*, Node*> visited_map;
     int count = 0;
     stack<string> char_stack;
+    vector<vector<int>> directions = {
+            {1, 0},
+            {-1, 0},
+            {0, 1},
+            {0, -1}
+    };
+    unordered_map<int,int> visited;
 public:
     StackExecutor():IExecutor() {
 
@@ -67,6 +74,10 @@ public:
     string decodeSubString(string s, int index);
 
     string decodeSubString2(string s, int index, int& end);
+
+    //733. 图像渲染
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor);
+    vector<vector<int>> floodFillDFS(vector<vector<int>>& image, int sr, int sc, int newColor);
 };
 
 
