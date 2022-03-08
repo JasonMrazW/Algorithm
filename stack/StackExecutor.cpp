@@ -106,26 +106,6 @@ vector<int> StackExecutor::dailyTemperatures(vector<int> &temperatures) {
 }
 
 
-void StackExecutor::execute() {
-//    cout << isValid("){") << endl;
-//    cout << checkValidString("((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()") << endl;
-//    vector<int> temperatures = {73,74,75,71,69,72,76,73};
-//    vector<int> ret = dailyTemperatures(temperatures);
-//
-//    for (int i = 0; i < ret.size(); ++i) {
-//        cout << ret[i] << ",";
-//    }
-//    cout << endl;
-//    vector<string> input = {"2","1","+","3","*"};
-//    cout << evalRPN(input) << endl;
-
-//vector<vector<char>> queue = {{'1','1','0','0','0'}, {'1','1','0','0','0'}, {'0','0','1','0','0'}, {'0','0','0','1','1'}};
-//        cout << "land count :" << numIslands(queue) << endl;
-
-        vector<int> numbs = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1};
-        int target = 1;
-        cout << findTargetSumWays2(numbs, target) << endl;
-}
 
 int StackExecutor::evalRPN(vector<string> &tokens) {
     stack<int> value;
@@ -281,4 +261,136 @@ vector<int> StackExecutor::inorderTraversal(TreeNode *root) {
     }
 
     return ret;
+}
+
+string StackExecutor::decodeString(string s) {
+    int end = 0;
+    return decodeSubString2(s, 0, end);
+}
+
+string StackExecutor::decodeSubString2(string s, int index, int& end) {
+    int i = index;
+    int num = 0;
+    string ret = "";
+    while (i < s.length()) {
+        char c = s[i];
+        if (isdigit(c)) {
+            int n = 0;
+            while (isdigit(c)) {
+                num = num * 10 + (c - '0');
+                i++;
+                c = s[i];
+                n++;
+            }
+        } else if (c == '[') {
+            int end = 0;
+            string tmp = decodeSubString2(s, i+1,end);
+            i = end + 1;
+            while (num > 0) {
+                ret.append(tmp);
+                num--;
+            }
+        } else if (c == ']') {
+            end = i;
+            return ret;
+        } else {
+            ret.append(1, c);
+            i++;
+        }
+    }
+    return ret;
+}
+
+string StackExecutor::decodeSubString(string s, int index) {
+    int i = index;
+    queue<string> temp_queue;
+    stack<string> char_stack;
+    while (i < s.length()) {
+        char c = s[i];
+        if (isdigit(c)) {
+            int num = 0;
+            int n = 0;
+            while (isdigit(c)) {
+                num = num * 10 + (c - '0');
+                i++;
+                c = s[i];
+                n++;
+            }
+            char_stack.push(to_string(num));
+        } else if (c == ']') {
+            if (char_stack.empty()) {
+                //invalid string
+                return "";
+            }
+
+            string tmp = char_stack.top();
+            char_stack.pop();
+            vector<string> tmp_vector;
+            while (tmp != "[") {
+                tmp_vector.push_back(tmp);
+                tmp = char_stack.top();
+                char_stack.pop();
+            }
+
+            reverse(tmp_vector.begin(),tmp_vector.end());
+
+            string ret = "";
+            int k = 0;
+            while (k < tmp_vector.size()) {
+                ret.append(tmp_vector[k++]);
+            }
+
+            string ret_tmp = "";
+
+            int num = atoi(char_stack.top().c_str());
+            cout << char_stack.top() << endl;
+            char_stack.pop();
+            while (num > 0) {
+                ret_tmp.append(ret);
+                num--;
+            }
+            i++;
+            char_stack.push(ret_tmp);
+        } else {
+            char_stack.push(string(1, c));
+            i++;
+        }
+    }
+
+    stack<string> tmp_stack;
+    while (!char_stack.empty()) {
+        tmp_stack.push(char_stack.top());
+        char_stack.pop();
+    }
+
+    string ret = "";
+    while (!tmp_stack.empty()) {
+        ret.append(tmp_stack.top());
+        tmp_stack.pop();
+    }
+    return ret;
+}
+
+
+void StackExecutor::execute() {
+    //    cout << isValid("){") << endl;
+    //    cout << checkValidString("((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()") << endl;
+    //    vector<int> temperatures = {73,74,75,71,69,72,76,73};
+    //    vector<int> ret = dailyTemperatures(temperatures);
+    //
+    //    for (int i = 0; i < ret.size(); ++i) {
+    //        cout << ret[i] << ",";
+    //    }
+    //    cout << endl;
+    //    vector<string> input = {"2","1","+","3","*"};
+    //    cout << evalRPN(input) << endl;
+
+    //vector<vector<char>> queue = {{'1','1','0','0','0'}, {'1','1','0','0','0'}, {'0','0','1','0','0'}, {'0','0','0','1','1'}};
+    //        cout << "land count :" << numIslands(queue) << endl;
+
+    //vector<int> numbs = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1};
+    //int target = 1;
+    //cout << findTargetSumWays2(numbs, target) << endl;
+
+    cout << decodeString("ab3[ab3[a]]b") << endl;
 }

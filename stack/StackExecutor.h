@@ -9,6 +9,7 @@
 #include "Node.h"
 #include <unordered_map>
 #include <unordered_set>
+#include <queue>
 
 using namespace std;
 struct TreeNode {
@@ -25,7 +26,8 @@ private:
     int left = 1;
     int right = 2;
     unordered_map<Node*, Node*> visited_map;
-        int count = 0;
+    int count = 0;
+    stack<string> char_stack;
 public:
     StackExecutor():IExecutor() {
 
@@ -58,6 +60,13 @@ public:
 
     //94. 二叉树中序遍历
     vector<int> inorderTraversal(TreeNode* root);
+
+    //394. 字符串解码
+    string decodeString(string s);
+
+    string decodeSubString(string s, int index);
+
+    string decodeSubString2(string s, int index, int& end);
 };
 
 
