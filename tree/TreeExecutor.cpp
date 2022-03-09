@@ -220,4 +220,39 @@ TreeNode *TreeExecutor::buildTreeByPreorder(int start, int end, vector<int> &pre
     return node;
 }
 
+TreeNode *TreeExecutor::connect(TreeNode *root) {
+    if (root == nullptr) {
+        return nullptr;
+    }
+
+    queue<TreeNode*> node_queue;
+    node_queue.emplace(root);
+
+    TreeNode *preNode = nullptr;
+    while (!node_queue.empty()) {
+        int size = node_queue.size();
+        preNode = nullptr;
+        for (int i = 0; i < size; ++i) {
+            TreeNode *node = node_queue.front();
+            node_queue.pop();
+            if (preNode) {
+                preNode->next = node;
+            }
+
+            preNode = node;
+
+            if (node->left) {
+                node_queue.push(node->left);
+            }
+
+            if (node->right) {
+                node_queue.emplace(node->right);
+            }
+        }
+
+    }
+
+    return root;
+}
+
 

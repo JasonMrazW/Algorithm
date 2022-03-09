@@ -55,6 +55,9 @@ public:
     //105. 从前序与中序遍历序列构造二叉树
     TreeNode* buildTreeByPreorder(vector<int>& preorder, vector<int>& inorder);
     TreeNode *buildTreeByPreorder(int start, int end, vector<int> &inorder, vector<int> &postorder);
+
+    //116. 填充每个节点的下一个右侧节点指针
+    TreeNode* connect(TreeNode* root);
 };
 
 
