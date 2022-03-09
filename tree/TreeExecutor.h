@@ -58,6 +58,12 @@ public:
 
     //116. 填充每个节点的下一个右侧节点指针
     TreeNode* connect(TreeNode* root);
+
+    //236. 二叉树的最近公共祖先
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q);
+    TreeNode* lowestCommonAncestor2(TreeNode* root, TreeNode* p, TreeNode* q);
+
+    bool findSub(TreeNode* root, TreeNode *target, vector<TreeNode*> &node_queue);
 };
 
 

@@ -255,4 +255,60 @@ TreeNode *TreeExecutor::connect(TreeNode *root) {
     return root;
 }
 
+bool TreeExecutor::findSub(TreeNode *root, TreeNode *target, vector<TreeNode*> &node_queue) {
+    if (root == nullptr || target == nullptr) {
+        return false;
+    }
+
+    if (findSub(root->left, target, node_queue)) {
+        node_queue.push_back(root);
+        return true;
+    }
+    if (findSub(root->right, target, node_queue)) {
+        node_queue.push_back(root);
+        return true;
+    }
+    if (root->val == target->val) {
+        node_queue.push_back(root);
+        return true;
+    }
+
+    return false;
+}
+
+TreeNode *TreeExecutor::lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q) {
+    vector<TreeNode*> p_node_queue;
+    findSub(root, p, p_node_queue);
+
+    vector<TreeNode*> q_node_queue;
+    findSub(root, q, q_node_queue);
+
+    //比较两个队列
+    TreeNode *common = nullptr;
+    for (int i = 0; i < p_node_queue.size(); ++i) {
+        for(int j=0;j < p_node_queue.size();++j) {
+            if (p_node_queue[i]->val == p_node_queue[j]->val) {
+                common = p_node_queue[i];
+                break;
+            }
+        }
+    }
+
+    return common;
+}
+
+TreeNode *TreeExecutor::lowestCommonAncestor2(TreeNode *root, TreeNode *p, TreeNode *q) {
+    if (root == nullptr || root == p || root == q) {
+        return root;
+    }
+
+    TreeNode *left = lowestCommonAncestor2(root->left, p, q);
+    TreeNode *right = lowestCommonAncestor2(root->right, p, q);
+
+    if (left && right) return root;
+
+    return left ? left:right;
+}
+
+
 
