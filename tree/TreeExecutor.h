@@ -31,6 +31,19 @@ public:
     vector<vector<int>> levelOrder(TreeNode* root);
 
     void levelOrder(TreeNode *root, vector<vector<int>> &visited, int step);
+
+    //树的最大深度
+    int maxDepth(TreeNode* root);
+
+    //对称二叉树
+    bool isSymmetric(TreeNode* root);
+
+    bool isSymmetric(TreeNode* left, TreeNode* right);
+
+    //最短路径
+    bool hasPathSum(TreeNode* root, int targetSum);
+
+    bool hasPathSum(TreeNode *node, int targetSum, int preValue);
 };
 
 

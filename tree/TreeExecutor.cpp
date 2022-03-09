@@ -116,4 +116,59 @@ void TreeExecutor::levelOrder(TreeNode *root, vector<vector<int>> &visited, int 
     }
 }
 
+int TreeExecutor::maxDepth(TreeNode *root) {
+    if (!root) {
+        return 0;
+    }
+
+    int left = maxDepth(root->left);
+    int right = maxDepth(root->right);
+    return max(left, right) + 1;
+}
+
+bool TreeExecutor::isSymmetric(TreeNode *root) {
+    if (root == nullptr) {
+        return false;
+    }
+
+    return isSymmetric(root->left, root->right);
+}
+
+bool TreeExecutor::isSymmetric(TreeNode *left, TreeNode *right) {
+    if (left == nullptr && right == nullptr) {
+        return true;
+    }
+
+    if (left == nullptr || right == nullptr) {
+        return false;
+    }
+
+    if (left->val != right->val) {
+        return false;
+    }
+
+    return isSymmetric(left->left, right->right) && isSymmetric(left->right, right->left);
+}
+
+bool TreeExecutor::hasPathSum(TreeNode *node, int targetSum, int preValue) {
+    if (node == nullptr)
+        return false;
+    //叶子节点
+    int current_value = preValue + node->val;
+    if (node->left == nullptr && node->right == nullptr) {
+        return current_value == targetSum;
+    }
+
+    return hasPathSum(node->left, targetSum, current_value) ||
+    hasPathSum(node->right, targetSum, current_value);
+}
+
+bool TreeExecutor::hasPathSum(TreeNode *root, int targetSum) {
+    if (root == nullptr) {
+        return false;
+    }
+
+    return hasPathSum(root, targetSum, 0);
+}
+
 
