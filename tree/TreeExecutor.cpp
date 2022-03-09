@@ -94,4 +94,26 @@ vector<int> TreeExecutor::postorderTraversalByIterator(TreeNode *root) {
 
 }
 
+vector<vector<int>> TreeExecutor::levelOrder(TreeNode *root) {
+    vector<vector<int>> ret;
+    if (root) {
+        levelOrder(root, ret, 0);
+    }
+    return ret;
+}
+
+void TreeExecutor::levelOrder(TreeNode *root, vector<vector<int>> &visited, int step) {
+    while (visited.size() <= step) {
+        vector<int> v;
+        visited.emplace_back(vector<int>());
+    }
+    visited[step].push_back(root->val);
+    if (root->left) {
+        levelOrder(root->left, visited, step+1);
+    }
+    if (root->right) {
+        levelOrder(root->right, visited, step+1);
+    }
+}
+
 

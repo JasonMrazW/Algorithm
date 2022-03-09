@@ -27,8 +27,10 @@ public:
 
     void postorderTraversal(TreeNode* node, vector<int> &visited);
 
+    //层序遍历
+    vector<vector<int>> levelOrder(TreeNode* root);
 
-
+    void levelOrder(TreeNode *root, vector<vector<int>> &visited, int step);
 };
 
 
