@@ -172,7 +172,6 @@ bool TreeExecutor::hasPathSum(TreeNode *root, int targetSum) {
 }
 
 TreeNode *TreeExecutor::buildTree(vector<int> &inorder, vector<int> &postorder) {
-
     int index = 0;
     for (int order: inorder) {
         visited_map[order] = index++;
@@ -197,6 +196,28 @@ TreeNode *TreeExecutor::buildTree(int in_start, int in_end, vector<int> &inorder
     root->left = buildTree(in_start, in_index -1, inorder, postorder);
 
     return root;
+}
+
+TreeNode *TreeExecutor::buildTreeByPreorder(vector<int> &preorder, vector<int> &inorder) {
+    int index = 0;
+    for(int value: inorder) {
+        visited_map[value] = index++;
+    }
+    root_position = 0;
+    return buildTreeByPreorder(0, inorder.size() -1, preorder, inorder);
+}
+
+TreeNode *TreeExecutor::buildTreeByPreorder(int start, int end, vector<int> &preorder, vector<int> &inorder) {
+    if (start > end) {
+        return nullptr;
+    }
+    int rootVal = preorder[root_position];
+    int in_index = visited_map[rootVal];
+    root_position++;
+    TreeNode *node = new TreeNode(rootVal);
+    node->left = buildTreeByPreorder(start, in_index-1, preorder, inorder);
+    node->right = buildTreeByPreorder(in_index+1, end, preorder, inorder);
+    return node;
 }
 
 

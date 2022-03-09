@@ -51,6 +51,10 @@ public:
     int root_position;
     unordered_map<int, int> visited_map;
     TreeNode *buildTree(int start, int end, vector<int> &inorder, vector<int> &postorder);
+
+    //105. 从前序与中序遍历序列构造二叉树
+    TreeNode* buildTreeByPreorder(vector<int>& preorder, vector<int>& inorder);
+    TreeNode *buildTreeByPreorder(int start, int end, vector<int> &inorder, vector<int> &postorder);
 };
 
 
