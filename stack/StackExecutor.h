@@ -81,6 +81,14 @@ public:
 
     //542. 01 矩阵
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat);
+
+    //841. 钥匙和房间
+    bool canVisitAllRooms(vector<vector<int>>& rooms);
+
+    bool canVisitAllRoomsDFS(vector<vector<int>>& rooms);
+
+    void visitRoomDFS(vector<vector<int>>& rooms, unordered_set<int> &visited, int room);
+
 };
 
 

@@ -497,4 +497,53 @@ vector<vector<int>> StackExecutor::updateMatrix(vector<vector<int>> &mat) {
     return ret;
 }
 
+bool StackExecutor::canVisitAllRooms(vector<vector<int>> &rooms) {
+    //1. 从第0个房间开始，取钥匙，放入一个队列
+    //2. 遍历队列的钥匙，进入房间，继续取钥匙，判断钥匙对应的房间是否已访问过，如果未访问，则将钥匙入队，
+    //   且已开房间数+1
+    //3. 判断已开房间数 是否等于 rooms.size
+
+    queue<int> keys;
+    for (int key: rooms[0]) {
+        keys.emplace(key);
+    }
+
+    unordered_set<int> visited;
+    visited.emplace(0);
+
+    while (!keys.empty()) {
+        int key = keys.front();
+        keys.pop();
+        if (visited.count(key)) {
+            continue;
+        }
+        for (int key: rooms[key]) {
+            if (visited.count(key)) {
+                continue;
+            }
+            keys.emplace(key);
+        }
+        visited.emplace(key);
+    }
+
+    return visited.size() == rooms.size();
+}
+
+//*****
+bool StackExecutor::canVisitAllRoomsDFS(vector<vector<int>>& rooms) {
+    unordered_set<int> visited;
+    visitRoomDFS(rooms, visited, 0);
+
+    return visited.size() == rooms.size();
+}
+
+void StackExecutor::visitRoomDFS(vector<vector<int>>& rooms, unordered_set<int> &visited, int room) {
+    visited.emplace(room);
+    for (int i = 0; i < rooms[room].size(); ++i) {
+        if (!visited.count(rooms[room][i])) {
+            visitRoomDFS(rooms, visited, rooms[room][i]);
+        }
+    }
+}
+
 
