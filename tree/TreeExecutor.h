@@ -44,6 +44,13 @@ public:
     bool hasPathSum(TreeNode* root, int targetSum);
 
     bool hasPathSum(TreeNode *node, int targetSum, int preValue);
+
+    //106. 从中序与后序遍历序列构造二叉树
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder);
+
+    int root_position;
+    unordered_map<int, int> visited_map;
+    TreeNode *buildTree(int start, int end, vector<int> &inorder, vector<int> &postorder);
 };
 
 

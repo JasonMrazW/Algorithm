@@ -171,4 +171,32 @@ bool TreeExecutor::hasPathSum(TreeNode *root, int targetSum) {
     return hasPathSum(root, targetSum, 0);
 }
 
+TreeNode *TreeExecutor::buildTree(vector<int> &inorder, vector<int> &postorder) {
+
+    int index = 0;
+    for (int order: inorder) {
+        visited_map[order] = index++;
+    }
+    root_position = (int)postorder.size()-1;
+    return buildTree(0, root_position, inorder, postorder);
+}
+
+TreeNode *TreeExecutor::buildTree(int in_start, int in_end, vector<int> &inorder, vector<int> &postorder) {
+    if (in_start > in_end) {
+        return nullptr;
+    }
+
+    int root_val = postorder[root_position];
+
+    TreeNode *root = new TreeNode(root_val);
+    //find 中序数组中对应的位置
+    int in_index = inorder[root_val];
+
+    root_position--;
+    root->right = buildTree(in_index + 1, in_end, inorder, postorder);
+    root->left = buildTree(in_start, in_index -1, inorder, postorder);
+
+    return root;
+}
+
 
