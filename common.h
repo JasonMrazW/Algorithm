@@ -6,6 +6,10 @@
 #define ALGORITHM_COMMON_H
 #include <iostream>
 #include <vector>
+#include <stack>
+#include <queue>
+#include <unordered_set>
+
 class IExecutor {
 public:
     IExecutor() {}
