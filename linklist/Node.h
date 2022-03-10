@@ -10,5 +10,8 @@ public:
     Node* prev;
     Node* next;
     Node* child;
+    Node* random;
+
+    Node(int v): val(v){};
 };
 #endif //ALGORITHM_NODE_H

@@ -16,6 +16,11 @@ public:
     Node* flatten(Node* head);
 
     Node* flattenChildren(Node* child);
+
+    //138. 复制带随机指针的链表
+    unordered_map<Node*, Node*> node_map;
+    Node* copyRandomList(Node* head);
+    Node* getNodeFromSet(Node* node);
 };
 
 
