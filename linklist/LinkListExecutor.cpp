@@ -104,3 +104,33 @@ ListNode *LinkListExecutor::removeNthFromEnd(ListNode *head, int n) {
 
     return ret;
 }
+
+ListNode *LinkListExecutor::reverseList(ListNode *head) {
+//    if (head == nullptr) return nullptr;
+//    ListNode *fake_head = new ListNode(0, head);
+//    ListNode *p = head;
+//    ListNode *target = p->next;
+//    if (target == nullptr) return head;
+//    while (target) {
+//        ListNode *temp = fake_head->next;
+//        fake_head->next = target;
+//        p->next = target->next;
+//        target->next = temp;
+//
+//        target = p->next;
+//    }
+//    return fake_head->next;
+    fake_head = new ListNode(0, head);
+    return reverseList2(fake_head->next);
+}
+
+ListNode *LinkListExecutor::reverseList2(ListNode *head) {
+    if (head->next == nullptr) {
+        return head;
+    }
+    ListNode *new_head = reverseList2(head->next);
+    head->next->next = head;
+    head->next = nullptr;
+
+    return new_head;
+}

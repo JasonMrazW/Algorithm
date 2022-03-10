@@ -21,6 +21,11 @@ public:
 
     //19. 删除链表的倒数第 N 个结点
     ListNode* removeNthFromEnd(ListNode* head, int n);
+
+    //206. 反转链表
+    ListNode* reverseList(ListNode* head);
+    ListNode* fake_head;
+    ListNode* reverseList2(ListNode* head);
 };
 
 
