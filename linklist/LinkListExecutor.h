@@ -41,6 +41,9 @@ public:
 
     //2. 两数相加
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);
+
+    //61. 旋转链表
+    ListNode* rotateRight(ListNode* head, int k);
 };
 
 

@@ -229,3 +229,38 @@ ListNode *LinkListExecutor::addTwoNumbers(ListNode *l1, ListNode *l2) {
 
     return ret_fake_header->next;
 }
+
+ListNode *LinkListExecutor::rotateRight(ListNode *head, int k) {
+    //1. 获取链表长度，且找到最后一个节点的指针
+    ListNode *fake_head = new ListNode(0, head);
+    ListNode *p = fake_head->next;
+    int length = 0;
+    while (p) {
+        length++;
+        if (p->next == nullptr) {
+            break;
+        }
+        p = p->next;
+    }
+
+    //2. 求一轮要挪多少步
+    int n = k%length;
+    if (n == 0) return head;
+
+    //3. 找到第n-1节点
+    ListNode *q = fake_head;
+    int step = length - n;
+    while (step > 0) {
+        q = q->next;
+        step--;
+    }
+
+    //4. 换节点
+    ListNode *temp = fake_head->next;
+    fake_head->next = q->next;
+    cout << temp->val << endl;
+    p->next = temp;
+    q->next = nullptr;
+
+    return fake_head->next;
+}
