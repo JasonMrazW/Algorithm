@@ -173,3 +173,59 @@ ListNode *LinkListExecutor::oddEvenList(ListNode *head) {
 
     return head;
 }
+
+bool LinkListExecutor::isPalindrome(ListNode *head) {
+    start_node = head;
+    return checkPalindrome(head);
+}
+
+bool LinkListExecutor::checkPalindrome(ListNode *node) {
+    if (node != nullptr) {
+        if (!checkPalindrome(node->next)) {
+            return false;
+        }
+        if (node->val != start_node->val) {
+            return false;
+        }
+        start_node = start_node->next;
+    }
+
+    return true;
+}
+
+ListNode *LinkListExecutor::addTwoNumbers(ListNode *l1, ListNode *l2) {
+    ListNode *ret_fake_header = new ListNode(0);
+    ListNode *first = l1;
+    ListNode *second = l2;
+    ListNode *ret_p = ret_fake_header;
+    int val = 0;
+    int ten = 0;
+    while (first && second) {
+        val = first->val + second->val + ten;
+        ListNode *node = new ListNode(val%10);
+        ret_p->next = node;
+        ret_p = ret_p->next;
+        ten = val/10;
+
+        first = first->next;
+        second = second->next;
+    }
+
+    ListNode *temp = first == nullptr? second:first;
+
+    while (temp) {
+        val = temp->val + ten;
+        ListNode *node = new ListNode(val%10);
+        ret_p->next = node;
+        ret_p = ret_p->next;
+        ten = val/10;
+
+        temp = temp->next;
+    }
+    if (ten == 1) {
+        ListNode *node = new ListNode(1);
+        ret_p->next = node;
+    }
+
+    return ret_fake_header->next;
+}

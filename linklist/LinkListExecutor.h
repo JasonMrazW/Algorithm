@@ -32,6 +32,15 @@ public:
 
     //328. 奇偶链表
     ListNode* oddEvenList(ListNode* head);
+
+    //234. 回文链表
+    ListNode *start_node;
+    bool isPalindrome(ListNode* head);
+
+    bool checkPalindrome(ListNode* node);
+
+    //2. 两数相加
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);
 };
 
 
