@@ -75,3 +75,32 @@ ListNode *LinkListExecutor::getIntersectionNode(ListNode *headA, ListNode *headB
 
     return a_p;
 }
+
+ListNode *LinkListExecutor::removeNthFromEnd(ListNode *head, int n) {
+    ListNode *fake_head = new ListNode(0, head);
+    ListNode *fast = head;
+    ListNode *slow = fake_head;
+    int size = 0;
+
+    int i = 0;
+    while (i++ < n) {
+        fast = fast->next;
+    }
+
+    while (fast) {
+        fast = fast->next;
+        slow = slow->next;
+    }
+
+    ListNode *target = slow->next;
+    if (target != nullptr) {
+        slow->next = target->next;
+    } else {
+        slow->next = nullptr;
+    }
+
+    ListNode *ret = fake_head->next;
+    delete fake_head;
+
+    return ret;
+}
