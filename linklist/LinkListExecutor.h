@@ -29,6 +29,9 @@ public:
 
     //203. 移除链表元素
     ListNode* removeElements(ListNode* head, int val);
+
+    //328. 奇偶链表
+    ListNode* oddEvenList(ListNode* head);
 };
 
 

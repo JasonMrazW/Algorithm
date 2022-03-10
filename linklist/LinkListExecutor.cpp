@@ -150,3 +150,26 @@ ListNode *LinkListExecutor::removeElements(ListNode *head, int val) {
     }
     return fakeHead->next;
 }
+
+ListNode *LinkListExecutor::oddEvenList(ListNode *head) {
+    if (head == nullptr || head->next == nullptr) {
+        return head;
+    }
+    ListNode *old = head;
+    ListNode *event = old->next;
+    ListNode *event_head = event;
+    while (old && event) {
+        old->next = event->next;
+        if (old->next != nullptr) {
+            old = old->next;
+        } else {
+            break;
+        }
+        event->next = old->next;
+        event = event->next;
+    }
+
+    old->next = event_head;
+
+    return head;
+}
