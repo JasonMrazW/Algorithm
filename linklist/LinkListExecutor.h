@@ -15,6 +15,9 @@ public:
 
     //142. 环形链表 II
     ListNode *detectCycle(ListNode *head);
+
+    //160.相交链表
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB);
 };
 
 

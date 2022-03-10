@@ -29,3 +29,49 @@ ListNode *LinkListExecutor::detectCycle(ListNode *head) {
     }
     return other;
 }
+
+ListNode *LinkListExecutor::getIntersectionNode(ListNode *headA, ListNode *headB) {
+    ListNode *a_p = headA;
+    ListNode *b_p = headA;
+
+    //分别取链表的长度
+    int a_length = 1;
+    while (a_p->next != nullptr) {
+        a_length++;
+        a_p = a_p->next;
+    }
+
+    int b_length = 1;
+    while (b_p->next != nullptr) {
+        b_length++;
+        b_p = b_p->next;
+    }
+
+    if (a_p != b_p) {
+        return nullptr;
+    }
+    //判断二者的差距
+    int distance = abs(a_length - b_length);
+    a_p = headA;
+    b_p = headB;
+
+    if (a_length > b_length) {
+        int i = distance;
+        while (i-->0) {
+            a_p = a_p->next;
+        }
+    } else {
+        int i = distance;
+        while (i-->0) {
+            b_p = b_p->next;
+        }
+    }
+
+    //二者到同一个起点了
+    while (a_p->val != b_p->val) {
+        a_p = a_p->next;
+        b_p = b_p->next;
+    }
+
+    return a_p;
+}
