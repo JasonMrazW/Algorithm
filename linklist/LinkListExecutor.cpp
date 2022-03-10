@@ -134,3 +134,19 @@ ListNode *LinkListExecutor::reverseList2(ListNode *head) {
 
     return new_head;
 }
+
+ListNode *LinkListExecutor::removeElements(ListNode *head, int val) {
+    if (head == nullptr) {
+        return nullptr;
+    }
+    ListNode* fakeHead = new ListNode(0, head);
+    ListNode* node = fakeHead;
+    while (node&&node->next) {
+        if (node->next->val == val) {
+            node->next = node->next->next;
+        } else {
+            node = node->next;
+        }
+    }
+    return fakeHead->next;
+}

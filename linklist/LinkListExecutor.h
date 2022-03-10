@@ -26,6 +26,9 @@ public:
     ListNode* reverseList(ListNode* head);
     ListNode* fake_head;
     ListNode* reverseList2(ListNode* head);
+
+    //203. 移除链表元素
+    ListNode* removeElements(ListNode* head, int val);
 };
 
 
