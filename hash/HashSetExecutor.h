@@ -16,6 +16,9 @@ public:
 
     //136. 只出现一次的数字
     int singleNumber(vector<int>& nums);
+
+    //137. 只出现一次的数字
+    int singleNumber2(vector<int>& nums);
 };
 
 

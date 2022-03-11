@@ -23,3 +23,20 @@ int HashSetExecutor::singleNumber(vector<int> &nums) {
     }
     return ret;
 }
+
+int HashSetExecutor::singleNumber2(vector<int> &nums) {
+    if (nums.size() == 1) return nums[0];
+    sort(nums.begin(), nums.end());
+    int i = 0;
+    while (i < nums.size()) {
+        if (i > nums.size() - 3) {
+            return nums[i];
+        }
+        if (nums[i] != nums[i+2]) {
+            return nums[i];
+        }
+
+        i+=3;
+    }
+    return -1;
+}
