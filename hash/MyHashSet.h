@@ -43,7 +43,7 @@ public:
     }
 
     bool contains(int key) {
-        int hashCode = hashCode(key);
+        int code = hashCode(key);
         for (auto it = data[code].begin(); it != data[code].end() ; ++i) {
             //already exist
             if(*it == key) {
