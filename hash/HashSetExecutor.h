@@ -19,6 +19,12 @@ public:
 
     //137. 只出现一次的数字
     int singleNumber2(vector<int>& nums);
+
+    //260. 只出现一次的数字 III
+    vector<int> singleNumber3(vector<int>& nums);
+
+    //349. 两数组交集
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2);
 };
 
 

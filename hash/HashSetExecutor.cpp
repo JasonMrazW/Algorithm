@@ -40,3 +40,33 @@ int HashSetExecutor::singleNumber2(vector<int> &nums) {
     }
     return -1;
 }
+
+vector<int> HashSetExecutor::singleNumber3(vector<int> &nums) {
+    sort(nums.begin(), nums.end());
+    int i =0 ;
+    while(i < nums.size()) {
+        if (nums[i] != nums[i+1]) {
+            return vector<int>({nums[i], nums[i+1]});
+        }
+        i+=2;
+    }
+}
+
+vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+    unordered_set<int> set1;
+    for(int num: nums1) {
+        set1.emplace(num);
+    }
+    unordered_set<int> set2;
+    for(int num: nums2) {
+        set2.emplace(num);
+    }
+
+    vector<int> ret;
+    for(auto it= set1.begin();it!=set1.end();it++) {
+        if (set2.count(*it)) {
+            ret.push_back(*it);
+        }
+    }
+    return ret;
+}
