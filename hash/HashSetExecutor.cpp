@@ -128,6 +128,30 @@ vector<string> HashSetExecutor::findRestaurant(vector<string> &list1, vector<str
     return ret;
 }
 
+//两个数组的交集 II
+vector<int> HashSetExecutor::intersect(vector<int> &nums1, vector<int> &nums2) {
+    if (nums1.size() > nums2.size()) {
+        return intersect(nums2, nums1);
+    }
+
+    unordered_map<int, int> kv;
+    for (int num: nums1) {
+        ++kv[num];
+    }
+
+    vector<int> ret;
+    for (int num: nums2) {
+        if (kv.count(num)) {
+            ret.push_back(num);
+            --kv[num];
+            if (kv[num] == 0) {
+                kv.erase(num);
+            }
+        }
+    }
+    return ret;
+}
+
 vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
     unordered_set<int> set1;
     for(int num: nums1) {

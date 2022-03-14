@@ -39,6 +39,9 @@ public:
 
     //599. 两个列表的最小索引总和
     vector<string> findRestaurant(vector<string>& list1, vector<string>& list2);
+
+    //350. 两个数组的交集 II
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2);
 };
 
 
