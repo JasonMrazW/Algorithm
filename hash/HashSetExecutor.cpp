@@ -152,6 +152,26 @@ vector<int> HashSetExecutor::intersect(vector<int> &nums1, vector<int> &nums2) {
     return ret;
 }
 
+bool HashSetExecutor::containsNearbyDuplicate(vector<int> &nums, int k) {
+
+    unordered_set<int> set;
+
+    int index = 0;
+    for(int num: nums) {
+        if (index > k) {
+            set.erase(nums[index -k - 1]);
+        }
+
+        if (set.count(num)) {
+            return true;
+        }
+        set.emplace(num);
+        index++;
+    }
+
+    return false;
+}
+
 vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
     unordered_set<int> set1;
     for(int num: nums1) {

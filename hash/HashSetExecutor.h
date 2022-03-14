@@ -42,6 +42,9 @@ public:
 
     //350. 两个数组的交集 II
     vector<int> intersect(vector<int>& nums1, vector<int>& nums2);
+
+    //219. 存在重复元素 II
+    bool containsNearbyDuplicate(vector<int>& nums, int k);
 };
 
 
