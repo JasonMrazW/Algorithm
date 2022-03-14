@@ -6,12 +6,13 @@
 #include "queue/MyCircularQueue.h"
 #include "queue/QueueExecutor.h"
 #include "stack/StackExecutor.h"
+#include "hash/HashSetExecutor.h"
 
 using namespace std;
 
 int main() {
     clock_t start = clock();
-    IExecutor *executor = new StackExecutor();
+    IExecutor *executor = new HashSetExecutor();
     executor->execute();
 
     clock_t end = clock();

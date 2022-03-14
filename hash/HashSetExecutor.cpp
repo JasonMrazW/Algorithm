@@ -3,6 +3,7 @@
 //
 
 #include "HashSetExecutor.h"
+using namespace std;
 
 bool HashSetExecutor::containsDuplicate(vector<int> &nums) {
     unordered_set<int> set;
@@ -50,6 +51,53 @@ vector<int> HashSetExecutor::singleNumber3(vector<int> &nums) {
         }
         i+=2;
     }
+}
+
+bool HashSetExecutor::isHappy(int n) {
+    unordered_set<int> value;
+    int sum = n;
+
+    while (sum != 1) {
+        int v = sum;
+        sum = 0;
+        while (v !=0) {
+            sum+= ((v%10)*(v%10));
+            v = v/10;
+        }
+        if (value.count(sum)) {
+            return false;
+        }
+        value.emplace(sum);
+    }
+
+    return true;
+}
+
+void HashSetExecutor::execute() {
+    cout << isHappy(2) << endl;
+}
+
+bool HashSetExecutor::isIsomorphic(string s, string t) {
+    unordered_map<char,char> map;
+    unordered_set<char> value_set;
+
+    for (int i = 0; i < s.length(); ++i) {
+        //该字符没有映射过
+        if (map.count(s[i]) <= 0) {
+            if (value_set.count(t[i]) <= 0) {
+                value_set.emplace(t[i]);
+                map.emplace(s[i], t[i]);
+            } else {
+                return false;
+            }
+        } else {
+            if (map[s[i]] != t[i]) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 
 vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {

@@ -7,9 +7,14 @@
 #include "../common.h"
 
 using namespace std;
-class HashSetExecutor: IExecutor {
+class HashSetExecutor:public IExecutor {
 public:
     HashSetExecutor():IExecutor(){}
+
+private:
+    void execute() override;
+
+public:
 
     //217. 存在重复元素
     bool containsDuplicate(vector<int>& nums);
@@ -25,6 +30,12 @@ public:
 
     //349. 两数组交集
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2);
+
+    //202. 快乐数
+    bool isHappy(int n);
+
+    //205. 同构字符串
+    bool isIsomorphic(string s, string t);
 };
 
 
