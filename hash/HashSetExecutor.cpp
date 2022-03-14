@@ -100,6 +100,34 @@ bool HashSetExecutor::isIsomorphic(string s, string t) {
     return true;
 }
 
+vector<string> HashSetExecutor::findRestaurant(vector<string> &list1, vector<string> &list2) {
+    unordered_map<string, int> key_val;
+    unordered_map<string, int> tmp;
+    int min_value = INT32_MAX;
+    string min_str = "";
+
+    for (int i = 0; i < list1.size(); ++i) {
+        key_val.emplace(list1[i], i);
+    }
+
+    for (int i = 0; i < list2.size(); ++i) {
+        string t = list2[i];
+        if (key_val.count(t) > 0) {
+            tmp.emplace(t, key_val[t] + i);
+            min_value = min(min_value, key_val[t] + i);
+        }
+    }
+
+    vector<string> ret;
+    for (auto it = tmp.begin(); it != tmp.end() ; it++) {
+        if (it->second == min_value) {
+            ret.push_back(it->first);
+        }
+    }
+
+    return ret;
+}
+
 vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
     unordered_set<int> set1;
     for(int num: nums1) {

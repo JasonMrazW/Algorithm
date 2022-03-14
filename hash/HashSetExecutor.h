@@ -36,6 +36,9 @@ public:
 
     //205. 同构字符串
     bool isIsomorphic(string s, string t);
+
+    //599. 两个列表的最小索引总和
+    vector<string> findRestaurant(vector<string>& list1, vector<string>& list2);
 };
 
 
