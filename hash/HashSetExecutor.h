@@ -58,7 +58,8 @@ public:
     //454. 四数相加 II
     int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4);
 
-    
+    //347. 前 K 个高频元素
+    vector<int> topKFrequent(vector<int>& nums, int k);
 };
 
 

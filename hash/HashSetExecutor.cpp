@@ -273,3 +273,36 @@ vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
     }
     return ret;
 }
+
+//前K个高频元素
+vector<int> HashSetExecutor::topKFrequent(vector<int> &nums, int k) {
+    unordered_map<int, int> map;
+    for(int num: nums) {
+        ++map[num];
+    }
+
+    vector<int> vec;
+    auto it = map.begin();
+    while (it != map.end()) {
+        vec.push_back(it->second);
+        it++;
+    }
+    sort(vec.begin(), vec.end(), greater<int>());
+
+    unordered_set<int> set;
+    for(int i=0;i<k;i++) {
+        set.emplace(vec[i]);
+    }
+
+    vector<int> ret;
+    it = map.begin();
+    while (it != map.end()) {
+        if (set.count(it->second)) {
+            ret.push_back(it->first);
+        }
+    }
+
+    return ret;
+}
+
+
