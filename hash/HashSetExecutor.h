@@ -51,6 +51,9 @@ public:
 
     //36. 有效的数独
     bool isValidSudoku(vector<vector<char>>& board);
+
+    //3. 无重复字符的最长子串
+    int lengthOfLongestSubstring(string s);
 };
 
 

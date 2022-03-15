@@ -214,6 +214,25 @@ bool HashSetExecutor::isValidSudoku(vector<vector<char>> &board) {
     return true;
 }
 
+int HashSetExecutor::lengthOfLongestSubstring(string s) {
+    int right = 0;
+    int left = 0;
+    int num = 0;
+    vector<int> chars(128, -1);
+
+    while (right < s.length()) {
+        char c = s[right];
+        int index = chars[c];
+        if(index != -1 && index >= left && index < right) {
+            left = index + 1;
+        }
+        chars[c] = right;
+        num = max(num, right - left + 1);
+        right++;
+    }
+    return num;
+}
+
 vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
     unordered_set<int> set1;
     for(int num: nums1) {
