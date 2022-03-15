@@ -283,26 +283,18 @@ vector<int> HashSetExecutor::topKFrequent(vector<int> &nums, int k) {
 
     vector<int> vec;
     auto it = map.begin();
+    vector<vector<int>> vec_list(nums.size()+1, vector<int>());
     while (it != map.end()) {
-        vec.push_back(it->second);
+        vec_list[it->second].push_back(it->first);
         it++;
     }
-    sort(vec.begin(), vec.end(), greater<int>());
 
-    unordered_set<int> set;
-    for(int i=0;i<k;i++) {
-        set.emplace(vec[i]);
+    for (int i = vec_list.size()-1;i > 0 && vec.size() < k;i--) {
+        if (vec_list[i].size() == 0) continue;
+        vec.insert(vec.begin(), vec_list[i].begin(), vec_list[i].end());
     }
 
-    vector<int> ret;
-    it = map.begin();
-    while (it != map.end()) {
-        if (set.count(it->second)) {
-            ret.push_back(it->first);
-        }
-    }
-
-    return ret;
+    return vec;
 }
 
 
