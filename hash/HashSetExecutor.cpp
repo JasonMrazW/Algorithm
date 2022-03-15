@@ -233,6 +233,28 @@ int HashSetExecutor::lengthOfLongestSubstring(string s) {
     return num;
 }
 
+int HashSetExecutor::fourSumCount(vector<int> &nums1, vector<int> &nums2, vector<int> &nums3, vector<int> &nums4) {
+    unordered_map<int, int> map;
+    for(int num1: nums1) {
+        for(int num2: nums2) {
+            ++map[num1+num2];
+        }
+    }
+
+    int count = 0;
+    for (int num3: nums3) {
+        for (int num4: nums4) {
+            int sum = -(num3 + num4);
+            if (map.count(sum)) {
+                count+=map[sum];
+            }
+        }
+    }
+
+
+    return count;
+}
+
 vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
     unordered_set<int> set1;
     for(int num: nums1) {

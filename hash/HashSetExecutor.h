@@ -54,6 +54,11 @@ public:
 
     //3. 无重复字符的最长子串
     int lengthOfLongestSubstring(string s);
+
+    //454. 四数相加 II
+    int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4);
+
+    
 };
 
 
