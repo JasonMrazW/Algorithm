@@ -64,6 +64,11 @@ public:
     TreeNode* lowestCommonAncestor2(TreeNode* root, TreeNode* p, TreeNode* q);
 
     bool findSub(TreeNode* root, TreeNode *target, vector<TreeNode*> &node_queue);
+
+
+    //652. 寻找重复的子树
+    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root);
+    string dfs(TreeNode *root, unordered_map<string, int> map, vector<TreeNode*> &ret);
 };
 
 

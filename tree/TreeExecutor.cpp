@@ -310,5 +310,21 @@ TreeNode *TreeExecutor::lowestCommonAncestor2(TreeNode *root, TreeNode *p, TreeN
     return left ? left:right;
 }
 
+vector<TreeNode *> TreeExecutor::findDuplicateSubtrees(TreeNode *root) {
+    unordered_map<string, int> map;
+    vector<TreeNode*> ret;
+    dfs(root, map, ret);
+    return ret;
+}
+
+string dfs(TreeNode *root, unordered_map<string, int> map, vector<TreeNode*> &ret) {
+    if (root == nullptr) return "";
+    string key = to_string(root->val) + "," + dfs(root->left, map, ret) + "," + dfs(root->right, map, ret);
+    if (map[key] == 1) {
+        ret.push_back(root);
+    }
+    map[key]++;
+    return key;
+}
 
 
