@@ -45,6 +45,12 @@ public:
 
     //219. 存在重复元素 II
     bool containsNearbyDuplicate(vector<int>& nums, int k);
+
+    //249. 移位字符串分组
+    vector<vector<string>> groupStrings(vector<string>& strings);
+
+    //36. 有效的数独
+    bool isValidSudoku(vector<vector<char>>& board);
 };
 
 

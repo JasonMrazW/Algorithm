@@ -172,6 +172,48 @@ bool HashSetExecutor::containsNearbyDuplicate(vector<int> &nums, int k) {
     return false;
 }
 
+vector<vector<string>> HashSetExecutor::groupStrings(vector<string> &strings) {
+    unordered_map<char, vector<string>> hash_map;
+
+    for(string str:strings) {
+        string tmp(str);
+        for(char &c:tmp) {
+            c = (c-str[0] + 26)%26 + 'a';
+        }
+        hash_map[tmp].push_back(str);
+    }
+
+    vector<vector<string>> ret;
+    for(auto it=hash_map.begin();it!=hash_map.end();it++) {
+        ret.push_back(it->second);
+    }
+
+    return ret;
+}
+
+bool HashSetExecutor::isValidSudoku(vector<vector<char>> &board) {
+    int rowNum = board.size();
+    int colNum = board[0].size();
+    vector<vector<int>> rows(rowNum, vector<int>(colNum));
+    vector<vector<int>> cols(colNum, vector<int>(rowNum));
+    vector<vector<vector<int>>> subRows(rowNum/3, vector<vector<int>>(colNum/3, vector<int>(9)));
+
+    for (int i = 0; i < rowNum; ++i) {
+        for (int j = 0; j < colNum; ++j) {
+            if (board[i][j] == '.') continue;
+            int index = board[i][j] - '0' - 1;
+            rows[i][index]++;
+            cols[j][index]++;
+            subRows[i/3][j/3][index]++;
+            if (rows[i][index] > 1 || cols[index][j] > 1 || subRows[i/3][j/3][index] > 1) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
 vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
     unordered_set<int> set1;
     for(int num: nums1) {
